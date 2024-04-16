@@ -1,83 +1,73 @@
-import { defineConfig, loadEnv } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig, loadEnv } from "vite";
+import vue from "@vitejs/plugin-vue";
 // TODO:踩坑 使用 import * as path 引入
-import * as path from 'path'
-import { viteMockServe } from 'vite-plugin-mock'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import Components from 'unplugin-vue-components/vite'
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
-import vitePluginRequire from 'vite-plugin-require'
-import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
-import svgLoader from 'vite-svg-loader'
-import { visualizer } from 'rollup-plugin-visualizer'
+import * as path from "path";
+import Components from "unplugin-vue-components/vite";
+import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
+import vitePluginRequire from "vite-plugin-require";
+import { chunkSplitPlugin } from "vite-plugin-chunk-split";
+import legacy from "@vitejs/plugin-legacy";
+import svgLoader from "vite-svg-loader";
 // 🌸 vite压缩图片资源
 // 🌸 icon生成雪碧图压缩
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import legacy from '@vitejs/plugin-legacy'
-
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 const env =
-  loadEnv('development', process.cwd()).VITE_ENV === 'development'
-    ? loadEnv('development', process.cwd())
-    : loadEnv('production', process.cwd())
+  loadEnv("development", process.cwd()).VITE_ENV === "development"
+    ? loadEnv("development", process.cwd())
+    : loadEnv("production", process.cwd());
 
 export default defineConfig({
   plugins: [
     vue(),
-    // TODO: 预览dist产物
-    visualizer({
-      // 打包完成后自动打开浏览器，显示产物体积报告
-      open: true
-    }),
+    // TODO: http2 优化
+
     svgLoader(),
     // TODO: svg变成雪碧图
     createSvgIconsPlugin({
-      iconDirs: [path.join(__dirname, 'src/assets/svgs')]
+      iconDirs: [path.join(__dirname, "src/assets/svgs")],
     }),
-    viteMockServe({
-      mockPath: path.resolve(__dirname, 'src/mock'),
-      watchFiles: true,
-      enable: true
-    }),
-    vueJsx(),
     Components({
       resolvers: [
         AntDesignVueResolver({
-          importStyle: false // css in js
-        })
-      ]
+          importStyle: false, // css in js
+        }),
+      ],
     }),
     // TODO: 踩坑：require使用vite-plugin-require插件适配
     // @ts-expect-error
     vitePluginRequire.default(),
     chunkSplitPlugin({
       // TODO: 踩坑：包分离优化使用正则 ，用数组会报错
-      strategy: 'default',
+      strategy: "default",
       customSplitting: {
         // `react` and `react-dom` 会被打包到一个名为`render-vendor`的 chunk 里面(包括它们的一些依赖，如 object-assign)
-        'vue-vendor': [/node_modules\/vue/],
-        'vue-third-party': [
+        "vue-vendor": [/node_modules\/vue/],
+        "vue-third-party": [
           /node_modules\/vue-router/,
           /node_modules\/lodash*/,
-          /node_modules\/axios/
+          /node_modules\/axios/,
         ],
         pinia: [/node_modules\/pinia/],
         antd: [/node_modules\/ant-design-vue/],
-        'ali-oss': [/node_modules\/ali-oss/]
-        // 源码中 utils 目录的代码都会打包进 `utils` 这个 chunk 中
-      }
+        "ali-oss": [/node_modules\/ali-oss/],
+      },
     }),
     // TODO: polyfills 垫片
     legacy({
-      targets: ['ie >= 11']
-    })
+      targets: ["ie >= 11"],
+    }),
   ],
   css: {
-    preprocessorOptions: {}
+    preprocessorOptions: {
+      scss: {
+        charset: false,
+      },
+    },
   },
   resolve: {
     // TODO:踩坑：忘了在tsconfig.json中命名
     alias: {
-      '@': path.join(__dirname, './src'),
+      "@": path.join(__dirname, "./src"),
       // prettier-ignore
       'com': path.resolve(__dirname, 'src/components'),
       // prettier-ignore
@@ -95,39 +85,40 @@ export default defineConfig({
       // prettier-ignore
       'store': path.resolve(__dirname, 'src/store'),
       // prettier-ignore
-      'i18n':path.resolve(__dirname,'src/i18n')
+      'i18n':path.resolve(__dirname,'src/i18n'),
     },
-    extensions: ['.js', '.cjs', '.json', '.ts', '.vue']
+    extensions: [".js", ".cjs", ".json", ".ts", ".vue"],
   },
   optimizeDeps: {
-    force: true // 强制进行依赖预构建
+    force: true, // 强制进行依赖预构建
   },
   server: {
     hmr: true,
     open: true,
     host: true, // 在局域网内进行热更新,
+    // TODO: http2 优化
     proxy: {
-      '/api': {
+      "/api": {
         target: env.VITE_TEST_HOST,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
-      '/upload': {
+      "/upload": {
         target: env.VITE_TEST_HOST_UPLOAD,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/upload/, '')
-      }
-    }
+        rewrite: (path) => path.replace(/^\/upload/, ""),
+      },
+    },
   },
   // 配置静态资源基础路径
-  base: env.NODE_ENV === 'development' ? '' : env.ASSETS_PATH,
+  base: env.NODE_ENV === "development" ? "" : env.ASSETS_PATH,
   build: {
-    outDir: './dist',
-    assetsDir: './static',
-    // 单文件or內联临界值\
-    minify: 'esbuild',
-    // TODO:因为部分浏览器不支持esm，所以es6是最合适的target
-    target: 'es6',
-    assetsInlineLimit: 8 * 1024
-  }
-})
+    outDir: "./dist",
+    assetsDir: "./static",
+    // 单文件or內联临界值
+    assetsInlineLimit: 8 * 1024,
+    rollupOptions: {
+      // external: Object.keys(externalGlobalsObj)
+    },
+  },
+});

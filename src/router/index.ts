@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { basicRoutes } from './basicRoutes'
-import { getToken } from '@/utils'
 
 export const router = createRouter({
   routes: basicRoutes,
@@ -8,15 +7,15 @@ export const router = createRouter({
 })
 
 // 全局路由守卫
-router.beforeEach((to, _, next) => {
-  const token = getToken()
-  if (token === null) {
-    if (to.name === 'login') {
-      next()
-    } else {
-      next({ path: 'login' })
-    }
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, _, next) => {
+//   const token = getToken()
+//   if (token === null) {
+//     if (to.name === 'login') {
+//       next()
+//     } else {
+//       next({ path: 'login' })
+//     }
+//   } else {
+//     next()
+//   }
+// })

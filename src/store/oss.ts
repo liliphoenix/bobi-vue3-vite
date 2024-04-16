@@ -143,7 +143,7 @@ export const useOssStore = defineStore('oss', {
           await this.initOss()
         }
         console.log(this.client)
-
+        console.log(12345)
         const result = await this.client.list()
         console.log(result)
         this.list = result.objects

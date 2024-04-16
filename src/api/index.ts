@@ -38,7 +38,7 @@ export const getWeather = (params = {}): dataType => {
     method: 'get',
     params,
     selfHeader: {
-      'X-APISpace-Token	': 'yzhc6eziyefcvr8o1luh8wl1rifkka1u'
+      'X-APISpace-Token	': 'n30k9jlfyucfa7k4ogr58xeuxjb3ghqh'
     }
   })
 }
@@ -58,13 +58,14 @@ export const getNumberIP = (data = {}): dataType => {
     data,
     selfHeader: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'X-APISpace-Token	': 'yzhc6eziyefcvr8o1luh8wl1rifkka1u'
+      'X-APISpace-Token	': 'n30k9jlfyucfa7k4ogr58xeuxjb3ghqh'
     }
   })
 }
 
 /* 
 * ali-oss + nest.js 文件上传方法
+* 初始化参数
 * @params url 
 * @params method 传入的参数
 * @params params or query 传入的参数

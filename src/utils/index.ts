@@ -17,8 +17,9 @@ export const getVueGlobalValue: () => globalProperties | null = () => {
     return null
   }
 }
+
 /**
- * 🌸 文件
+ * 🌸 文件s
  * @params url 文件下载地址
  * @params filename 文件名称
  */
@@ -30,10 +31,9 @@ export const downloadFile = (url, filename): void => {
   element.click()
   console.log('下载成功')
 }
-// const jsDom = require("js-dom");
-// const axios = require("axios");
+
 /**
- * 获取url参数
+ * 🌸 获取url参数
  */
 export const getUrlParam = (name): any => {
   const match = location.hash.match(/#[^?]+(\?.+)/)
@@ -43,49 +43,6 @@ export const getUrlParam = (name): any => {
   return r != null ? r[2] : ''
 }
 
-// 13位时间戳格式转化为 yyyy/m/dd h:m Am
-export const getDateTime = (timeStamp): string => {
-  const date = new Date(timeStamp)
-
-  const y = date.getFullYear()
-  let minute: number | string = date.getMinutes()
-  let m: number | string = date.getMonth() + 1
-  let d: number | string = date.getDate()
-  let h: number | string = date.getHours()
-  m = m < 10 ? '0' + m : m
-  d = d < 10 ? '0' + d : d
-  minute = minute < 10 ? '0' + minute : minute
-  const unit = h < 12 ? 'AM' : 'PM'
-  h = h < 12 ? h : h - 12
-  return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ' ' + unit
-}
-// id（hh.mm  dd/mm/yy）   eg:15.03  30/11/2021
-// my (hh.mm  dd/mm/yy)    eg:15.03  30/11/2021
-// ph（mm/dd/yy h:mm unit）  eg:11/30/2021  3:03pm
-// za (hh:mm dd/mm/yyyy)   eg:15:03  30/11/2021
-export const getDateTime1 = (timeStamp, country): string => {
-  const date = new Date(timeStamp)
-  const y = date.getFullYear()
-  let minute: number | string = date.getMinutes()
-  let m: number | string = date.getMonth() + 1
-  let d: number | string = date.getDate()
-  let h: number | string = date.getHours()
-  m = m < 10 ? '0' + m : m
-  d = d < 10 ? '0' + d : d
-  const h2 = h < 12 ? h : h - 12
-  minute = minute < 10 ? '0' + minute : minute
-  const unit = h < 12 ? 'am' : 'pm'
-  h = h < 10 ? '0' + h : h
-  if (country === 'ph') {
-    return `${m}/${d}/${y} ${h2}:${minute}${unit}`
-  } else if (country === 'za') {
-    return `${h}:${minute} ${d}/${m}/${y}`
-  } else if (country === 'eg') {
-    return `${d}/${m}/${y} ${h}:${minute}`
-  } else {
-    return `${h}.${minute} ${d}/${m}/${y}`
-  }
-}
 // 🌸 动态外部js文件
 export const dynamicLoadJs = (url, attrObj, insertEl): any => {
   return new Promise((resolve, reject) => {
@@ -107,10 +64,6 @@ export const dynamicLoadJs = (url, attrObj, insertEl): any => {
       document.body.appendChild(script)
     }
   })
-}
-// 🌸 获取uuid
-export const getUUID = (): string => {
-  return +new Date() + Math.random().toString(16).replace('.', '')
 }
 
 /**
@@ -156,7 +109,7 @@ export const debounce = (func, wait, immediate): any => {
   }
 }
 
-// 节流函数 每隔time执行一次函数
+// 🌸 节流函数 每隔time执行一次函数
 export const throttle = (fun, time = 100): any => {
   let base = 0
   return function (...args) {
@@ -169,7 +122,7 @@ export const throttle = (fun, time = 100): any => {
 }
 
 /**
- * 动态添加css文件
+ * 🌸 动态添加css文件
  */
 export const loadStyles = (url): void => {
   const link: HTMLLinkElement = document.createElement('link')
@@ -188,26 +141,6 @@ export const sleep = (time): any => {
   return new Promise((resolve) => setTimeout(resolve, time))
 }
 
-/**
- * 🌸 毫秒值转换为hms
- * seconds:毫秒值 必填
- * type:modify 根据毫秒值自行匹配hms/dhm
- */
-export const formatTimeMap = (seconds, type = 'modify'): any => {
-  if (seconds < 0) return
-  if (seconds > 3600 * 24 && type !== 'hms') {
-    const d = Math.floor(seconds / 86400)
-    const h = Math.floor((seconds % 86400) / 3600)
-    const m = Math.floor((seconds % 3600) / 60)
-    return { d, h, m }
-  } else {
-    // 🌸 超过24小时也要展示时分秒
-    const h = Math.floor(seconds / 3600)
-    const m = Math.floor((seconds / 60) % 60)
-    const s = Math.floor(seconds % 60)
-    return { h, m, s }
-  }
-}
 export const stInterval = (fn, t): any => {
   let timer: any
   function interval(): void {
@@ -222,17 +155,7 @@ export const stInterval = (fn, t): any => {
   }
 }
 
-// 替换字符串或数组中的内容
-export const replaceString = (strs, target, value): any => {
-  if (!strs || !target || !value) return
-  if (Array.isArray(strs)) {
-    return strs.map((item) => item.replace(new RegExp(target, 'g'), value))
-  } else if (typeof strs === 'string') {
-    return strs.replace(new RegExp(target, 'g'), value)
-  }
-}
-
-// 根据链接动态设置页面背景
+// 🌸 根据链接动态设置页面背景
 export const setDomBgColorByUrl = ({
   el = '',
   defaultBgColor = '',

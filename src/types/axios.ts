@@ -17,6 +17,7 @@ export interface resType<T> {
   result_code: number
   data: T
   message: string
+  result?: T
 }
 
 // 🌸 可扩展config
