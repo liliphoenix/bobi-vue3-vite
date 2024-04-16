@@ -1,113 +1,88 @@
-# 💎 vite-full-featured 💎
+cli：https://github.com/liliphoenix/full-featured
 
-#### Vue 3 + TypeScript + Vite脚手架
+<div style="display:flex;justify-content: center;align-items: center;">
+ <img style="width:200px;" src="https://github.com/liliphoenix/full-featured/blob/main/public/logo.png"></img>
+</div>
+<div style="display:flex;justify-content: center;align-items: center;">
+<a href="https://www.npmjs.com/package/full-featured-cli">
+<img style="margin-right:15px"  alt="Static Badge" src="https://img.shields.io/npm/v/npm.svg?logo=npm">
+</a>
+<a href="https://github.com/liliphoenix/full-featured/actions">
+<img style="margin-right:15px" src="https://img.shields.io/github/actions/workflow/status/simple-icons/simple-icons/verify.yml?branch=develop&logo=github&label=tests" alt="Build status"/>
+</a>
+<a>
+<img style="margin-right:15px"  alt="Static Badge" src="https://img.shields.io/github/license/vigonotion/hass-simpleicons">
+</a>
 
-> vue3 个人功能丰富的工作流框架 基于vite-vue3脚手架
-> 首次搭建自己的工作流，实现代码风格 提交规范的配置 🎉🎉🎉
+</div>
+<div style="display:flex;justify-content: center;align-items: center;margin-top:10px">
+<img style="margin-right:15px"  alt="Static Badge" src="https://img.shields.io/static/v1?message=5.0.8&label=Vite&color=e0377c">
+<img style="margin-right:10px"  alt="Static Badge" src="https://img.shields.io/badge/Vue-3.4.21-6bbc90">
+<img style="margin-right:10px"  alt="Static Badge" src="https://img.shields.io/badge/React-blue">
+<img style="margin-right:10px"  alt="Static Badge" src="https://img.shields.io/badge/tailwindCss-skyblue">
+<img style="margin-right:10px"  alt="Static Badge" src="https://img.shields.io/badge/scss-pink">
+<img style="margin-right:10px"  alt="Static Badge" src="https://img.shields.io/badge/less-317bf8">
+<img style="margin-right:10px"  alt="Static Badge" src="https://img.shields.io/badge/aliOss-orange">
+<img style="margin-right:10px"  alt="Static Badge" src="https://img.shields.io/badge/monorepo-purple">
+<img style="margin-right:10px"  alt="Static Badge" src="https://img.shields.io/badge/pnpm-yellow">
 
-| 项目集成功能         | Value  |
-| -------------------- | ------ |
-| 代码书写以及提交规范 | eslint |
-| 手机                 | $12    |
-| 导管                 | $1     |
+</div>
+<hr/>
 
-## v1.0任务目标
+</div>
 
-### 项目重心
+## 介绍
 
-业务功能齐全的工作流，
-需要具备的功能：1.通过命令行进行安装,实现某些插件的可插拔2.业务功能齐全化、代码检测提交规范化3.打包性能优化4.通用自动化部署配置
+Full-Featured脚手架目的是来为我们的业务开发节省时间，省去复杂的二次封装配置。
 
-- [x] 代码规范和提交规范
-- [x] axios的二次封装
+项目demo：http://39.107.94.120:8001/#/home
+文档地址：https://liliphoenix.github.io/full-featured/
+自动化部署教程：https://juejin.cn/post/7352925909740322831
 
-  - [x] 拦截器
-  - [x] get post请求
-  - [x] ali-oss文件分片上传 文件下载 文件列表显示
+| 功能介绍           | 详细说明                                                                                |     |
+| :----------------- | :-------------------------------------------------------------------------------------- | :-- |
+| 打包优化           | 代码分割方案、gzip、polyfills等                                                         | ✅  |
+| 性能优化           | host局域网热更新、postCss（autoprefix、preset）等                                       | ✅  |
+| 开发便捷           | alias常用封装、scss入口封装、env多环境配置、跨域配置等                                  | ✅  |
+| 代码风格检查       | eslint+prettier+stylelint                                                               | ✅  |
+| 代码提交检查       | cz.js+commitlint+cz-git-emoji 一键式提交方案（即严谨又好看👍）                          | ✅  |
+| 图片资源处理       | svg、icon封装雪碧图、ali-oss云存储空间方案                                              | ✅  |
+| css                | 封装常用样式组合，封装常用动过渡动画、base文件配置全局使用                              | ✅  |
+| axios              | axios接口二次封装、封装相应和请求拦截器、封装适配ali-oss的函数和server、(Restful❌)     | ✅  |
+| utils              | 封装防抖节流、时间转换等等函数                                                          | ✅  |
+| pinia              | 基础封装+ali-oss Api调用函数封装                                                        | ✅  |
+| router             | 基础封装（404页面等等）                                                                 | ✅  |
+| git自动化部署      | 封装workflow脚本文件，自动打包部署到（github、gitlab❌、gitee❌）                       | ✅  |
+| 自动化部署（上线） | 提供 docker+jenkins+nginx 搭建自动化部署部署方案 （在掘金提供亲笔配套教程亲，包教包会） | ✅  |
 
-- [ ] 通用组件的封装（第一期基于antd进行封装，以后开发bobi-ui后再引入组件库）
-  - [ ] 二次封装message
-  - [ ] popup弹窗
-- [x] pinia 状态管理器
-  - [ ] [可选] 获取设备的基本信息？
-  - [ ] 获取用户语言设置多语言
-- [ ] 打包优化（有待学习vite）vite插件集成
-  - [x] 分包策略 vue全家桶放一块 ali-oss-sdk单分chunk因为体积太大 剩下的
-  - [x] treeShaking es6自带 去除掉没有用到的api
-  - [x] gzip
-  - [ ] cdn加速
-  - [ ] 图片压缩
-- [ ] sh命令行操作
-- [ ] vue-router
-  - [ ] 权限控制？
-- [ ] 多环境变量
-- [ ] 美化md文档
-- [ ] vitePress编写项目文档
-- [x] 引入配置tailwindCss框架 引入配置postcss
-- [ ] 常用utils方法的封装
-- [ ] 封装成可插拔cli模版工具
+## 安装
 
-#### 项目运行
+全局安装full-featured-cli脚手架
 
-`npm install`
-`npm run dev`
+```
+npm install full-featured-cli -g
+```
 
-#### 代码提交➕代码风格规范
+🌈 一键生成模版
 
-### 老生常谈的解决 eslint和prettier的冲突问题 ✅
+```
+full-featured init
+```
 
-### cz+commitlint+git-emoji 代码提交 ✅
+✅ 启动
 
-自动规范化和简洁化代码提交
+```
+npm run dev
+```
 
-`npm run commit`
+📦 打包
 
-### 提交前 husky 检查代码规范+format代码 ✅
+```
+npm run build
+```
 
-### 支持scss代码 支持stylelint + prettier 修改scss ✅
+⬆️ 一键提交代码
 
-### vite配置完善 alias proxy css... ✅
-
-### prod dev test 环境变量配置支持 ✅
-
-### axios二次封装 + mock ✏️✏️✏️
-
-### common css封装 + 常用css方法封装 ✏️✏️✏️
-
-### pinia 完善配置 ✏️✏️✏️
-
-### vue-router 完善配置 ✏️✏️✏️
-
-### utils 常见方法的封装 ✏️✏️✏️
-
-### i18n 多语言配置 ✏️✏️✏️
-
-#### 2.29计划
-
-- [x] 文件下载功能
-- [x] pinia 封装
-- [x] tailwind css 封装 - 学习css原子化
-
-#### 3.1计划
-
-- [x] tailwind css 封装 - 学习css原子化
-- [x] 优化pinia
-
-#### 3.4计划
-
-- [ ] 打包优化 了解vite打包流程和原理
-- [x] ali-oss打包报错 原因:vite-require 决定迁移到后端 解决：踩坑 vite-plugin-require-transform包在vite4.0 报错 vite-plugin-require 解决问题
-- [ ] 发布npm包 尝试实现热插拔
-
-#### 3.5计划
-
-- [ ] 完成昨日计划
-- [ ] 深入了解vite打包优化
-- [ ] github actions
-
-#### 3.6继续昨天计划
-
-#### 踩坑
-
-husky/\_/husky.sh: No such file or directory
-解决：从新`npx husky install`
+```
+npm run commit
+```
